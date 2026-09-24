@@ -41,6 +41,7 @@ func commandCatch(cfg *config, args ...string) error {
 	catched := tryCatch(pokemon.BaseExperience)
 	if catched == false {
 		fmt.Printf("%s escaped!\n", pokemon.Name)
+		return nil
 	}
 
 	fmt.Printf("%s was caught!\n", pokemon.Name)

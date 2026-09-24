@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func commandPokedex(cfg *config, args ...string) error {
 	if len(cfg.caughtPokemon) == 0 {
@@ -9,8 +12,15 @@ func commandPokedex(cfg *config, args ...string) error {
 	}
 
 	fmt.Println("Your Pokedex:")
-	for _, pokemon := range cfg.caughtPokemon {
-		fmt.Printf(" - %s\n", pokemon.Name)
+
+	names := make([]string, 0, len(cfg.caughtPokemon))
+	for name := range cfg.caughtPokemon {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+
+	for _, name := range names {
+		fmt.Printf(" - %s\n", name)
 	}
 	return nil
 }

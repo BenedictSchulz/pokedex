@@ -1,18 +1,18 @@
 package main
 
 import (
-	"math/rand"
 	"fmt"
+	"math/rand"
 )
 
-func catchChance (level int) float64 {
+func catchChance(level int) float64 {
 	const (
-		base = 0.90
-		perLevel = 0.04
+		base      = 0.90
+		perLevel  = 0.04
 		minChance = 0.05
 	)
 
-	chance := base - perLevel * float64(level)
+	chance := base - perLevel*float64(level)
 	if chance < minChance {
 		chance = minChance
 	}
@@ -23,7 +23,6 @@ func catchChance (level int) float64 {
 func tryCatch(level int) bool {
 	return rand.Float64() < catchChance(level)
 }
-
 
 func commandCatch(cfg *config, args ...string) error {
 	if len(args) != 1 {
@@ -45,6 +44,7 @@ func commandCatch(cfg *config, args ...string) error {
 	}
 
 	fmt.Printf("%s was caught!\n", pokemon.Name)
+	fmt.Println("You may now inspect it with the inspect command.")
 	cfg.caughtPokemon[pokemon.Name] = pokemon
 
 	return nil
